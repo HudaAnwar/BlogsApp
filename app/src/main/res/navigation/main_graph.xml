@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/authorsListFragment">
+
+    <fragment
+        android:id="@+id/authorsListFragment"
+        android:name="com.huda.blogsapp.AuthorsListFragment"
+        android:label="AuthorsListFragment">
+        <action
+            android:id="@+id/viewAuthorDetails"
+            app:destination="@id/authorDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/authorDetailsFragment"
+        android:name="com.huda.blogsapp.AuthorDetailsFragment"
+        android:label="AuthorDetailsFragment">
+        <action
+            android:id="@+id/viewPostComments"
+            app:destination="@id/commentsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentsFragment"
+        android:name="com.huda.blogsapp.CommentsFragment"
+        android:label="CommentsFragment" />
+</navigation>
