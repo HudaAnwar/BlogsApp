@@ -1,4 +1,4 @@
-package com.huda.blogsapp.domain.model
+package com.huda.blogsapp.network.model
 
 data class Address(
     var latitude: String?,
