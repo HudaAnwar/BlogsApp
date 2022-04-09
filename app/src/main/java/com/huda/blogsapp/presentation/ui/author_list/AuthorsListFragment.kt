@@ -1,4 +1,4 @@
-package com.huda.blogsapp
+package com.huda.blogsapp.presentation.ui.author_list
 
 
 import android.os.Bundle
@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.huda.blogsapp.domain.model.Author
+import com.huda.blogsapp.R
 
 
 class AuthorsListFragment : Fragment() {

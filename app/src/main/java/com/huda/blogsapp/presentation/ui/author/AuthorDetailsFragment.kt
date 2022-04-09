@@ -1,4 +1,4 @@
-package com.huda.blogsapp
+package com.huda.blogsapp.presentation.ui.author
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.huda.blogsapp.R
 
 class AuthorDetailsFragment : Fragment() {
     override fun onCreateView(

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/authorsListFragment"
-        android:name="com.huda.blogsapp.AuthorsListFragment"
+        android:name="com.huda.blogsapp.presentation.ui.author_list.AuthorsListFragment"
         android:label="AuthorsListFragment">
         <action
             android:id="@+id/viewAuthorDetails"
@@ -14,7 +14,7 @@
     </fragment>
     <fragment
         android:id="@+id/authorDetailsFragment"
-        android:name="com.huda.blogsapp.AuthorDetailsFragment"
+        android:name="com.huda.blogsapp.presentation.ui.author.AuthorDetailsFragment"
         android:label="AuthorDetailsFragment">
         <action
             android:id="@+id/viewPostComments"
@@ -22,6 +22,6 @@
     </fragment>
     <fragment
         android:id="@+id/commentsFragment"
-        android:name="com.huda.blogsapp.CommentsFragment"
+        android:name="com.huda.blogsapp.presentation.ui.comment.CommentsFragment"
         android:label="CommentsFragment" />
 </navigation>

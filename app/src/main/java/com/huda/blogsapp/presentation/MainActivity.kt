@@ -1,9 +1,10 @@
-package com.huda.blogsapp
+package com.huda.blogsapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.huda.blogsapp.R
 import com.huda.blogsapp.network.AuthorService
 import com.huda.blogsapp.network.CommentService
 import com.huda.blogsapp.network.PostService
