@@ -10,7 +10,7 @@ class AuthorRepository_Impl(
     private val authorService: AuthorService,
     private val mapper: AuthorDtoMapper
 ) : Repository<Author> {
-    override suspend fun getList(page: Int, limit: Int): List<Author> {
+    override suspend fun getList(id: Int, page: Int, limit: Int): List<Author> {
         val response = authorService.getAuthorList(page, limit)
         val authors = response.body()
         return authors?.let { mapper.toDomainList(it) } ?: listOf()

@@ -8,8 +8,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PostService {
-    @GET("posts")
+    @GET("authors/{id}/posts")
     suspend fun getPostList(
+        @Path("id") id: Int,
         @Query("_page") page: Int,
         @Query("_limit") limit: Int
     ): Response<List<PostDto>>
@@ -18,4 +19,12 @@ interface PostService {
     suspend fun getPostById(
          @Path("id") id: Int
     ): PostDto
+//
+//    @GET("posts")
+//    suspend fun getAuthorPosts(
+//        @Query("authorId") authorId: Int,
+//        @Query("_page") page: Int,
+//        @Query("_limit") limit: Int
+//    ): Response<List<PostDto>>
+
 }
