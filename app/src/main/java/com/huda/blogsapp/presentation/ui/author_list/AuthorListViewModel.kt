@@ -26,10 +26,10 @@ class AuthorListViewModel @Inject constructor(
         getAuthorsList()
     }
 
-    private fun getAuthorsList() {
+    fun getAuthorsList() {
         viewModelScope.launch {
             loading.value = true
-            val authorsResult = repository.getList(-1,1, PAGE_SIZE)
+            val authorsResult = repository.getList(page = 1, limit = PAGE_SIZE)
             authors.value = authorsResult
             loading.value = false
         }
@@ -44,7 +44,7 @@ class AuthorListViewModel @Inject constructor(
 //                delay(1000)
                 if (page.value > 1) {
                     val result = repository
-                        .getList(page.value, PAGE_SIZE)
+                        .getList(page = page.value, limit = PAGE_SIZE)
                     Log.d(TAG, "nextPage: $result")
                     appendAuthors(result)
                 }

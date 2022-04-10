@@ -45,80 +45,100 @@ val address = mutableStateOf("")
 
 @Composable
 fun AuthorDetails(
+    loading: Boolean,
     author: Author,
     geocoder: Geocoder,
     onClick: () -> Unit
 ) {
-    LaunchedEffect(key1 = "c1", block = {
-        getAddress(author.address, geocoder)
-    })
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 10.dp)
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-            contentDescription = "back arrow",
+    if (loading) {
+        LoadingAuthorListShimmer(cardHeight = 200.dp, 1)
+    } else {
+        LaunchedEffect(key1 = "c1", block = {
+            getAddress(author.address, geocoder)
+        })
+        Column(
             modifier = Modifier
-                .clickable(onClick = onClick)
-                .padding(start = 16.dp)
-                .align(Start),
-            colorFilter = ColorFilter.tint(Color.Black)
-
-        )
-        val image = author.imgUrl?.let {
-            LoadPicture(
-                url = it,
-                defaultImage = DEFAULT_AUTHOR_IMAGE
-            ).value
-        }
-        image?.let { img ->
-            Image(
-                bitmap = img.asImageBitmap(),
-                contentDescription = "Author image",
-                modifier = Modifier
-                    .size(80.dp)
-                    .align(CenterHorizontally)
-                    .clip(CircleShape)
-                    .border(1.0.dp, Color.Black, CircleShape)
-            )
-        }
-        Spacer(modifier = Modifier.padding(4.dp))
-        Row(
-            modifier = Modifier.align(CenterHorizontally)
+                .fillMaxWidth()
+                .padding(top = 10.dp)
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                contentDescription = "back arrow",
+                modifier = Modifier
+                    .clickable(onClick = onClick)
+                    .padding(start = 16.dp)
+                    .align(Start),
+                colorFilter = ColorFilter.tint(Color.Black)
+
+            )
+            val image = author.imgUrl?.let {
+                LoadPicture(
+                    url = it,
+                    defaultImage = DEFAULT_AUTHOR_IMAGE
+                ).value
+            }
+            image?.let { img ->
+                Image(
+                    bitmap = img.asImageBitmap(),
+                    contentDescription = "Author image",
+                    modifier = Modifier
+                        .size(80.dp)
+                        .align(CenterHorizontally)
+                        .clip(CircleShape)
+                        .border(1.0.dp, Color.Black, CircleShape)
+                )
+            }
+            Spacer(modifier = Modifier.padding(4.dp))
+            Row(
+                modifier = Modifier.align(CenterHorizontally)
+            ) {
+                Text(
+                    text = "${author.name}",
+                    modifier = Modifier.align(CenterVertically),
+                    color = Color.Black,
+                    style = MaterialTheme.typography.h6
+                )
+                Text(
+                    text = " (${author.userName})",
+                    modifier = Modifier.align(CenterVertically),
+                    color = Color.Gray,
+                    style = MaterialTheme.typography.body2
+                )
+            }
+
+            Spacer(modifier = Modifier.padding(4.dp))
             Text(
-                text = "${author.name}",
-                modifier = Modifier.align(CenterVertically),
+                text = author.email ?: "",
+                modifier = Modifier.align(CenterHorizontally),
                 color = Color.Black,
-                style = MaterialTheme.typography.h6
+                style = MaterialTheme.typography.body1,
+                fontWeight = FontWeight.Bold
             )
+            Spacer(modifier = Modifier.padding(4.dp))
             Text(
-                text = " (${author.userName})",
-                modifier = Modifier.align(CenterVertically),
-                color = Color.Gray,
-                style = MaterialTheme.typography.body2
+                text = address.value,
+                modifier = Modifier.align(CenterHorizontally),
+                color = Color.Blue,
+                style = MaterialTheme.typography.body1
             )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFFF2F2F2)),
+            ) {
+                Text(
+                    text = "Posts",
+                    modifier = Modifier
+                        .align(CenterVertically)
+                        .padding(8.dp),
+                    color = Color.Black,
+                    style = MaterialTheme.typography.body1,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
-
-        Spacer(modifier = Modifier.padding(4.dp))
-        Text(
-            text = author.email ?: "",
-            modifier = Modifier.align(CenterHorizontally),
-            color = Color.Black,
-            style = MaterialTheme.typography.body1,
-            fontWeight = FontWeight.Bold
-        )
-        Spacer(modifier = Modifier.padding(4.dp))
-        Text(
-            text = address.value,
-            modifier = Modifier.align(CenterHorizontally),
-            color = Color.Blue,
-            style = MaterialTheme.typography.body1
-        )
     }
-
+    CircularIndeterminateProgressBar(isDisplayed = loading)
 }
 
 suspend fun getAddress(addressCoordinates: List<Double>, geocoder: Geocoder) {
