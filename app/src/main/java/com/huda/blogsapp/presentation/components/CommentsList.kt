@@ -2,10 +2,7 @@ package com.huda.blogsapp.presentation.components
 
 import android.os.Bundle
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
@@ -33,18 +30,18 @@ fun CommentsList(
     loading: Boolean
 ) {
 
-    Column {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
         if (loading && comments.isEmpty()) {
-            LoadingAuthorListShimmer(cardHeight = 250.dp, 5)
+            LoadingAuthorListShimmer(cardHeight = 200.dp, 5)
         } else {
             LazyColumn() {
                 itemsIndexed(comments) { index, comment ->
-//                    if (hasNext) {
                     onChangeScrollPosition(index)
                     if ((index + 1) >= (page * Constants.PAGE_SIZE) && !loading) {
                         onPageEnd()
                     }
-//                    }
                     CommentCard(comment = comment)
                 }
             }

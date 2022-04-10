@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -44,7 +45,7 @@ import java.util.*
 class AuthorDetailsFragment : Fragment() {
 
     private var authorId = -1
-    private val viewModel by viewModels<AuthorDetailsViewModel>()
+    val viewModel by viewModels<AuthorDetailsViewModel>()
     private lateinit var geocoder: Geocoder
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,40 +69,34 @@ class AuthorDetailsFragment : Fragment() {
                 )
                 val author = viewModel.author.value
                 val loading = viewModel.loading.value
-                val loading2 = viewModel.loading2.value
                 val posts = viewModel.posts.value
+                val loading2 = viewModel.loading2.value
                 val page = viewModel.page.value
-                Column(
-                    modifier = Modifier
-                        .scrollable(
-                            state = rememberScrollState(),
-                            orientation = Orientation.Vertical,
-                            enabled = true
-                        )
-                        .fillMaxSize()
-                ) {
-                    if (loading) {
-                        LoadingAuthorListShimmer(cardHeight = 200.dp, 1)
-                    } else {
+                Scaffold(
+                    topBar = {
                         AuthorDetails(
+                            loading = loading,
                             author = author,
                             geocoder = geocoder,
                             onClick = {
                                 findNavController().popBackStack()
                             }
                         )
-                        Spacer(modifier = Modifier.padding(4.dp))
-                        PostList(
-                            posts = posts,
-                            author = author,
-                            navController = findNavController(),
-                            onPageEnd = { viewModel.nextPage(authorId) },
-                            loading = loading2,
-                            onChangeScrollPosition = viewModel::onChangeScrollPosition,
-                            page = page
-                        )
                     }
-                    CircularIndeterminateProgressBar(isDisplayed = loading)
+                ) {
+
+                    PostList(
+                        posts = posts,
+                        author = author,
+                        navController = findNavController(),
+                        onPageEnd = {
+                            viewModel.nextPage(authorId)
+                        },
+                        loading = loading2,
+                        onChangeScrollPosition = viewModel::onChangeScrollPosition,
+                        page = page
+                    )
+
                 }
             }
         }
