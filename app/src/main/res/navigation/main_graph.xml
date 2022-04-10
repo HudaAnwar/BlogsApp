@@ -22,16 +22,9 @@
         <argument
             android:name="id"
             app:argType="integer" />
-        <action
-            android:id="@+id/backToAuthors"
-            app:destination="@id/authorsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/commentsFragment"
         android:name="com.huda.blogsapp.presentation.ui.comment.CommentsFragment"
-        android:label="CommentsFragment" >
-        <action
-            android:id="@+id/backToPosts"
-            app:destination="@id/authorDetailsFragment" />
-    </fragment>
+        android:label="CommentsFragment" />
 </navigation>
