@@ -36,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AuthorsListFragment : Fragment() {
-    private val viewModel by viewModels<AuthorListViewModel>()
+    val viewModel by viewModels<AuthorListViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,14 +48,16 @@ class AuthorsListFragment : Fragment() {
                 val page = viewModel.page.value
                 val loading = viewModel.loading.value
                 Scaffold(topBar = {
-                    MyAppBar("Blogs App",false, onClick = {})
+                    MyAppBar("Blogs App", false, onClick = {})
                 }) {
                     AuthorList(
                         loading = loading,
                         authors = authors,
                         onChangeScrollPosition = viewModel::onChangeScrollPosition,
                         page = page,
-                        onPageEnd = { viewModel.nextPage() },
+                        onPageEnd = {
+                            viewModel.nextPage()
+                        },
                         navController = findNavController()
                     )
                 }

@@ -2,10 +2,7 @@ package com.huda.blogsapp.presentation.components
 
 import android.os.Bundle
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
@@ -23,6 +20,7 @@ import com.huda.blogsapp.R
 import com.huda.blogsapp.domain.model.Author
 import com.huda.blogsapp.domain.model.Post
 import com.huda.blogsapp.utils.Constants
+import com.huda.blogsapp.utils.Constants.PAGE_SIZE
 
 @Composable
 fun PostList(
@@ -34,29 +32,16 @@ fun PostList(
     loading: Boolean,
     navController: NavController
 ) {
-    Column {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFF2F2F2)),
-        ) {
-            Text(
-                text = "Posts",
-                modifier = Modifier
-                    .align(CenterVertically)
-                    .padding(4.dp),
-                color = Color.Black,
-                style = MaterialTheme.typography.body1,
-                fontWeight = FontWeight.Bold
-            )
-        }
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
         if (loading && posts.isEmpty()) {
-            LoadingAuthorListShimmer(cardHeight = 250.dp,5)
+            LoadingAuthorListShimmer(cardHeight = 250.dp, 5)
         } else {
             LazyColumn {
                 itemsIndexed(posts) { index, post ->
                     onChangeScrollPosition(index)
-                    if ((index + 1) >= (page * Constants.PAGE_SIZE) && !loading) {
+                    if ((index + 1) >= (page * PAGE_SIZE) && !loading) {
                         onPageEnd()
                     }
                     PostCard(
@@ -74,3 +59,21 @@ fun PostList(
         CircularIndeterminateProgressBar(isDisplayed = loading)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

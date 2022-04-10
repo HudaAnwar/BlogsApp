@@ -53,20 +53,13 @@ class CommentsFragment : Fragment() {
                         findNavController().popBackStack()
                     }
                 }) {
-                    Column {
-                        if (loading) {
-                            LoadingAuthorListShimmer(cardHeight = 200.dp, 15)
-                        } else {
-                            CommentsList(
-                                comments = comments,
-                                onPageEnd = { viewModel.nextPage(postId) },
-                                loading = loading,
-                                onChangeScrollPosition = viewModel::onChangeScrollPosition,
-                                page = page
-                            )
-                        }
-                        CircularIndeterminateProgressBar(isDisplayed = loading)
-                    }
+                    CommentsList(
+                        comments = comments,
+                        onPageEnd = { viewModel.nextPage(postId) },
+                        loading = loading,
+                        onChangeScrollPosition = viewModel::onChangeScrollPosition,
+                        page = page
+                    )
                 }
             }
         }

@@ -22,7 +22,6 @@ class CommentsViewModel @Inject constructor(
     val comments = mutableStateOf<List<Comment>>(listOf())
     val loading = mutableStateOf(false)
     val page = mutableStateOf(1)
-//    val hasNext = mutableStateOf(false)
     private var scrollPosition = 0
 
     fun getCommentsList(postId: Int) {
@@ -31,7 +30,6 @@ class CommentsViewModel @Inject constructor(
             val res = commentsRepository
                 .getList(postId, page.value, Constants.PAGE_SIZE)
             comments.value = res
-//            hasNext.value = (commentsRepository as CommentRepository_Impl).hasNext.value
             loading.value = false
         }
     }
@@ -41,12 +39,9 @@ class CommentsViewModel @Inject constructor(
             if ((scrollPosition + 1) >= (page.value * Constants.PAGE_SIZE)) {
                 loading.value = true
                 incrementPage()
-                Log.d(Constants.TAG, "nextPage: ${page.value}")
                 if (page.value > 1) {
                     val result = commentsRepository
                         .getList(postId, page.value, Constants.PAGE_SIZE)
-//                    hasNext.value = (commentsRepository as CommentRepository_Impl).hasNext.value
-                    Log.d(Constants.TAG, "nextPage: $result")
                     appendComments(result)
                 }
                 loading.value = false
