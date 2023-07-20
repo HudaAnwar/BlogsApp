@@ -12,7 +12,4 @@ This is a micro blogging platform app with a high level user interactions
 1. Retrofit2
 1. Single Activity Architecture
 
-# Why Coroutines not RxJava?
-1. For it's simplicity
-
 
